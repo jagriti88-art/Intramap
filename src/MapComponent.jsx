@@ -11,6 +11,19 @@ import {
 
 import { buildings } from "./buildings";
 import { useEffect, useState } from "react";
+import L from "leaflet";
+
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow
+});
 
 /* 🔥 Buildings Layer */
 function BuildingPolygons({ onSelectBuilding }) {
@@ -80,7 +93,7 @@ function UserLocation() {
 
         setPosition([lat, lng]);
         map.setView([lat, lng], 18);
-      },
+      },                                 
       (err) => console.error(err),
       { enableHighAccuracy: true,
          maximumAge: 0,        // ❗ no cache
